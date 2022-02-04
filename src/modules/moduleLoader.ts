@@ -102,9 +102,13 @@ export function loadModuleTabs(path: string, node?: es.Node) {
   // Load the tabs for the current module
   return sideContentTabPaths.map(path => {
     const rawTabFile = memoizedGetModuleFile(path, 'tab')
+    console.log(rawTabFile)
+    console.log(convertRawTabToFunction(rawTabFile))
     try {
       return eval(convertRawTabToFunction(rawTabFile))
     } catch (error) {
+      console.log("Don't keep your secrets")
+      console.error(error)
       throw new ModuleInternalError(path, node)
     }
   })
